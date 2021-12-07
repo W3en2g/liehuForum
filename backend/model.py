@@ -1,26 +1,29 @@
 from os import read
-from sqlalchemy import Column,  VARCHAR, CHAR, INT, create_engine
+from sqlalchemy import Column,  VARCHAR, CHAR, INT, Enum, create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.sql.sqltypes import Enum
 
+# set the connection in the model, outer file just need to end the connection
 # 创建对象的基类:
 Base = declarative_base()
+# 初始化数据库连接:
 engine = create_engine('mysql+pymysql://root:mysql@localhost:3306/liehuer')
 # 创建DBSession类型:
 DBSession = sessionmaker(bind=engine)
-# 创建session对象:
-session = DBSession()
-
+# # 创建session对象:
+# session = DBSession()
 
 # 定义对象:
-class liehuer(Base):
+class Liehuer(Base):
     # 表的名字:
     __tablename__ = 'liehuer'
     # 表的结构:
-    stuName = Column(VARCHAR(4), primary_key=True)
-    level = Column(CHAR(6))
-    dept = Column(CHAR(3))
-    grade = Column(INT)
+    stuNum = Column(INT, primary_key=True)
+    stuName = Column(VARCHAR(4))
+    level = Column(VARCHAR(6))
+    dept = Column(VARCHAR(4))
+    password = Column(VARCHAR(8))
 
 # 定义对象:
 class TaRelation(Base):
@@ -35,17 +38,3 @@ class TaRelation(Base):
 
 
 
-    # def add(self):
-    #     # 创建新User对象:
-    #     new_user = User(stuName='冯境', level='Senior',dept = 'MDA', grade = '20')
-    #     # 添加到session:
-    #     self.session.add(new_user)
-    #     # 提交即保存到数据库:
-    #     self.session.commit()
-    
-    # def read(self):
-    #     # 创建Query查询，filter是where条件，最后调用one()返回唯一行，如果调用all()则返回所有行:
-    #     user = self.session.query(User).filter(User.stuName=='aaa').one()
-    #     # 打印类型和对象的name属性:
-    #     print('type:', type(user))
-    #     print('name:', user.stuName)
