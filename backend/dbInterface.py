@@ -13,10 +13,6 @@ def addNewUser(newStuNum,newStuName,newLevel,newDept,newPassword):
         session.add(new_liehuer)
         session.commit()
     except DataError as dateErr:# wrong input format
-        # erResult = erPattern.findall(str(dateErr.args))
-        
-        # errMessa = erResult[len(erResult)-1] [3:-3]
-        # print(errMessa)
         raise dateErr
 
     except IntegrityError:
@@ -56,8 +52,8 @@ def selectTas(memName,taName):
     session = DBSession()
     member = session.query(Liehuer).filter(and_(Liehuer.stuName==memName),or_(Liehuer.level=='Junior',Liehuer.level=='Member')).one_or_none()
     ta = session.query(Liehuer).filter(Liehuer.stuName==taName, Liehuer.level=='Senior').one_or_none()
-    # print(member.stuNum)
-
+    if member is None or ta is None:
+        raise Exception("没这儿人")
     try:
         newIntention = TaIntention(member_num = member.stuNum, ta_num = ta.stuNum)
         session.add(newIntention)
