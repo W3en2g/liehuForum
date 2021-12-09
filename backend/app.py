@@ -57,7 +57,6 @@ def chosseTa():
     ta1Name = request.form['ta1Name']
     ta2Name = request.form['ta2Name']
 
-    # 未处理异常
     try:
         selectTas(memName,ta1Name)
         selectTas(memName,ta2Name)
