@@ -67,3 +67,11 @@ def selectTas(memName,taName):
     finally:
         session.close()
 
+def getPost():
+    return
+
+def updatePost():
+    return
+
+def updateComment():
+    return

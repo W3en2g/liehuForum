@@ -1,1 +1,0 @@
-      or_(Liehuer.level=='Junior',Liehuer.level=='Member')
