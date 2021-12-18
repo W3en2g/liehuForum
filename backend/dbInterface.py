@@ -67,11 +67,25 @@ def selectTas(memName,taName):
     finally:
         session.close()
 
-def getPost():
-    return
+def getPost(pid):
+    session = DBSession()
+    thePost = session.query(Post).filter(Post.postID==pid).one()
+    writter = session.query(Liehuer).filter(Liehuer.stuNum==thePost.writterID).one().nickName
+    session.close()
+    print(thePost.content)
+    return thePost.title, writter, thePost.content
 
-def updatePost():
-    return
+def posts_create(newTitle,newWritterID,newContent):
+    session = DBSession()
+    try:
+        new_post = Post(title = newTitle, writterID = newWritterID, content = newContent)
+        session.add(new_post)
+        session.commit()
+    except Exception:
+        raise Exception("该用户已注册, 请联系管理员")
+    #关闭session:
+    finally:
+        session.close()
 
 def updateComment():
     return
