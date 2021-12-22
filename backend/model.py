@@ -43,7 +43,7 @@ class Post(Base):
     thumbs_up = Column(INT,server_default='0')
 
 # 定义对象:
-class comment(Base):
+class Comment(Base):
     # 表的名字:
     __tablename__ = 'comment'
     # 表的结构:

@@ -75,17 +75,42 @@ def getPost(pid):
     print(thePost.content)
     return thePost.title, writter, thePost.content
 
-def posts_create(newTitle,newWritterID,newContent):
+def getComment(pid):
+    session = DBSession()
+    theCommentList = session.query(Comment).filter(Comment.postID==pid).order_by(Comment.create_time).all()
+    resCommentList = []
+    for i in (0,len(theCommentList)-1):
+        writter = session.query(Liehuer).filter(Liehuer.stuNum==theCommentList[i].writterID).one().nickName
+        currentComment = {'writter':writter, 'content':theCommentList[i].content, 'createTime':theCommentList[i].create_time}
+        resCommentList.append(currentComment)
+    session.close()
+
+    return resCommentList
+
+
+def create_post(newTitle,theWritterID,newContent):
     session = DBSession()
     try:
-        new_post = Post(title = newTitle, writterID = newWritterID, content = newContent)
+        new_post = Post(title = newTitle, writterID = theWritterID, content = newContent)
         session.add(new_post)
         session.commit()
     except Exception:
-        raise Exception("该用户已注册, 请联系管理员")
+        raise Exception("提交帖子出错")
     #关闭session:
     finally:
         session.close()
 
-def updateComment():
-    return
+
+
+def create_comment(rePostID,theWritterID,newContent):
+    session = DBSession()
+    try:
+        new_comment = Comment(postID = rePostID, writterID = theWritterID, content = newContent)
+        session.add(new_comment)
+        session.commit()
+    except Exception:
+        raise Exception("提交评论出错")
+    #关闭session:
+    finally:
+        session.close()
+
