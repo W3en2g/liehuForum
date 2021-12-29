@@ -69,3 +69,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+#Critical files
+ SQLSetting.py

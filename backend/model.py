@@ -8,8 +8,9 @@ from sqlalchemy.sql import func
 # set the connection in the model, outer file just need to end the connection
 # 创建对象的基类:
 Base = declarative_base()
-# 初始化数据库连接:
-engine = create_engine('mysql+pymysql://root:mysql@localhost:3306/liehuer')
+# 引入数据库连接:
+# engine = create_engine('mysql+pymysql://liehuer:mysql@localhost:3306/liehuer')
+from SQLSetting import engine as engine
 # 创建DBSession类型:
 DBSession = sessionmaker(bind=engine)
 # # 创建session对象:
