@@ -55,22 +55,6 @@ class Comment(Base):
     create_time = Column(DateTime,server_default=func.now())
 
 
-# 定义对象:
-class TaRelation(Base):
-    # 表的名字:
-    __tablename__ = 'tadistribution'
-    # 表的结构:
-    name = Column(VARCHAR(4), primary_key=True)
-    TAname = Column(VARCHAR(4))
-
-# 定义对象:
-class TaIntention(Base):
-    # 表的名字:
-    __tablename__ = 'ta_choosing'
-    # 表的结构:
-    member_num = Column(INT, primary_key=True)
-    ta_num = Column(INT, primary_key=True)
-
 
 
 
